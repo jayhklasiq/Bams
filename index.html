@@ -1,457 +1,261 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bam Footwear — Gallery</title>
-    <meta
-      name="description"
-      content="Bam Footwear crafts premium custom-made footwear. Explore our gallery, customize your pair, or contact us to get started."
-    />
-    <link
-      rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%A6%9A%3C/text%3E%3C/svg%3E"
-    />
-    <link href="assets/css/styles.css" rel="stylesheet" />
-    <script>
-      tailwind = {
-        config: {
-          theme: {
-            extend: {
-              colors: {
-                brand: {
-                  DEFAULT: "#0ea5e9",
-                  dark: "#0369a1",
-                  light: "#38bdf8",
-                },
-              },
-            },
-          },
-        },
-      };
-    </script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
-      integrity="sha512-qpbNo6Upk0YvGgTgTg7yqJk/HRfP9wra6nZBqNhI7Zk2gk2Xn3S3mHDEfS3A4dWcAF0aLz3w3dD8h8Zc6o6XRl8g=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <style>
-      /* Akony Font */
-      @font-face {
-        font-family: "Akony";
-        src: url("assets/fonts/akony/AKONY.woff2") format("woff2"),
-          url("assets/fonts/akony/AKONY.woff") format("woff"),
-          url("assets/fonts/akony/AKONY.ttf") format("truetype"),
-          url("assets/fonts/akony/AKONY.otf") format("opentype");
-        font-weight: normal;
-        font-style: normal;
-        font-display: swap;
-      }
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Bam Footwear — Gallery</title>
+		<meta name="description" content="Bam Footwear crafts premium custom-made footwear. Explore our gallery, customize your pair, or contact us to get started." />
+		<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%A6%9A%3C/text%3E%3C/svg%3E" />
+		<link href="assets/css/styles.css" rel="stylesheet" />
+		<script>
+			tailwind = {
+				config: {
+					theme: {
+						extend: {
+							colors: {
+								brand: {
+									DEFAULT: "#0ea5e9",
+									dark: "#0369a1",
+									light: "#38bdf8",
+								},
+							},
+						},
+					},
+				},
+			};
+		</script>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<style>
+			/* Akony Font */
+			@font-face {
+				font-family: "Akony";
+				src: url("assets/fonts/akony/AKONY.woff2") format("woff2"), url("assets/fonts/akony/AKONY.woff") format("woff"), url("assets/fonts/akony/AKONY.ttf") format("truetype"), url("assets/fonts/akony/AKONY.otf") format("opentype");
+				font-weight: normal;
+				font-style: normal;
+				font-display: swap;
+			}
 
-      /* Project Blackbird Font */
-      @font-face {
-        font-family: "Project Blackbird";
-        src: url("assets/fonts/project_blackbird/PROJEKT BLACKBIRD.otf")
-          format("opentype");
-        font-display: swap;
-      }
+			/* Project Blackbird Font */
+			@font-face {
+				font-family: "Project Blackbird";
+				src: url("assets/fonts/project_blackbird/PROJEKT BLACKBIRD.otf") format("opentype");
+				font-display: swap;
+			}
 
-      /* Apply fonts */
-      h1, h2, h3, h4, h5, h6, .font-akony, 
+			/* Apply fonts */
+			h1, h2, h3, h4, h5, h6, .font-akony, 
       .gallery-card p:first-child,  /* Footwear names */
       .btn-custom,  /* Custom buttons */
       .measurement-option label,  /* Measurement options */
       nav a,  /* Navigation links */
       .btn-contact {
-        /* Contact button */
-        font-family: "Akony", sans-serif;
-        letter-spacing: 0.5px;
-      }
+				/* Contact button */
+				font-family: "Akony", sans-serif;
+				letter-spacing: 0.5px;
+			}
 
-      body {
-        font-family: "Project Blackbird", sans-serif;
-      }
+			body {
+				font-family: "Project Blackbird", sans-serif;
+			}
 
-      /* Gallery card hover effect */
-      .gallery-card {
-        cursor: pointer;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-      .gallery-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-      }
+			/* Gallery card hover effect */
+			.gallery-card {
+				cursor: pointer;
+				transition: transform 0.3s ease, box-shadow 0.3s ease;
+			}
+			.gallery-card:hover {
+				transform: translateY(-4px);
+				box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+			}
 
-      /* Modal image styling */
-      #modalImage {
-        border-radius: 12px;
-      }
+			/* Modal image styling */
+			#modalImage {
+				border-radius: 12px;
+			}
 
-      .gallery-item {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-      .gallery-item:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-          0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      }
-      .gallery-modal {
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
-      }
-      .gallery-modal.active {
-        opacity: 1;
-        visibility: visible;
-      }
-      .gallery-modal-content {
-        transform: scale(0.9);
-        transition: transform 0.3s ease;
-      }
-      .gallery-modal.active .gallery-modal-content {
-        transform: scale(1);
-      }
-      .gallery-nav-btn {
-        opacity: 0.7;
-        transition: opacity 0.2s ease, transform 0.2s ease;
-      }
-      .gallery-nav-btn:hover {
-        opacity: 1;
-        transform: scale(1.1);
-      }
-    </style>
-  </head>
-  <body class="bg-white text-slate-800 antialiased" data-page="home">
-    <header
-      class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-slate-200/60"
-    >
-      <div
-        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between"
-      >
-        <a href="index.html" class="font-black text-xl tracking-tight"
-          >Bam <span class="text-brand">Footwear</span></a
-        >
-        <nav class="flex items-center gap-6 text-sm">
-          <a class="text-brand font-semibold" href="index.html">Gallery</a>
-          <a class="hover:text-brand" href="custom.html">Custom My Foot</a>
-          <a class="hover:text-brand" href="contact.html">Contact Us</a>
-        </nav>
-      </div>
-      <!-- Mobile menu button -->
-      <div class="md:hidden">
-        <button id="menuToggle" class="hamburger" aria-label="Toggle menu">
-          <span
-            class="block w-6 h-0.5 bg-slate-900 mb-1.5 transition-transform"
-          ></span>
-          <span
-            class="block w-6 h-0.5 bg-slate-900 mb-1.5 transition-opacity"
-          ></span>
-          <span
-            class="block w-6 h-0.5 bg-slate-900 transition-transform"
-          ></span>
-        </button>
-      </div>
+			.gallery-item {
+				transition: transform 0.3s ease, box-shadow 0.3s ease;
+			}
+			.gallery-item:hover {
+				transform: translateY(-4px);
+				box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+			}
+			.gallery-modal {
+				opacity: 0;
+				visibility: hidden;
+				transition: opacity 0.3s ease, visibility 0.3s ease;
+			}
+			.gallery-modal.active {
+				opacity: 1;
+				visibility: visible;
+			}
+			.gallery-modal-content {
+				transform: scale(0.9);
+				transition: transform 0.3s ease;
+			}
+			.gallery-modal.active .gallery-modal-content {
+				transform: scale(1);
+			}
+			.gallery-nav-btn {
+				opacity: 0.7;
+				transition: opacity 0.2s ease, transform 0.2s ease;
+			}
+			.gallery-nav-btn:hover {
+				opacity: 1;
+				transform: scale(1.1);
+			}
+		</style>
+	</head>
+	<body class="bg-white text-slate-800 antialiased" data-page="home">
+		<header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-slate-200/60">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+				<a href="index.html" class="font-black text-xl tracking-tight">Bam <span class="text-brand">Footwear</span></a>
+				<!-- Desktop Navigation -->
+				<nav class="hidden md:flex items-center gap-6 text-sm">
+					<a class="text-brand font-semibold" href="index.html">Gallery</a>
+					<a class="hover:text-brand" href="custom.html">Custom My Foot</a>
+					<a class="hover:text-brand" href="contact.html">Contact Us</a>
+				</nav>
 
-      <!-- Mobile menu overlay -->
-      <div
-        id="mobileMenu"
-        class="fixed inset-0 z-50 bg-white/95 backdrop-blur-sm hidden"
-      >
-        <div class="flex flex-col h-full items-center justify-center space-y-8">
-          <nav class="flex flex-col items-center space-y-6 text-xl">
-            <a
-              href="index.html"
-              class="text-slate-900 hover:text-brand font-medium transition-colors"
-              onclick="toggleMenu()"
-              >Gallery</a
-            >
-            <a
-              href="custom.html"
-              class="text-slate-900 hover:text-brand font-medium transition-colors"
-              onclick="toggleMenu()"
-              >Custom Orders</a
-            >
-            <a
-              href="contact.html"
-              class="text-slate-900 hover:text-brand font-medium transition-colors"
-              onclick="toggleMenu()"
-              >Contact Us</a
-            >
-          </nav>
-        </div>
-      </div>
-    </header>
-    <main>
-      <section class="relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-          <div class="grid md:grid-cols-2 gap-10 items-center">
-            <div>
-              <h1
-                class="text-4xl md:text-6xl font-black tracking-tight leading-tight reveal-on-load"
-              >
-                Crafted Uniquely For You.
-              </h1>
-              <p
-                class="mt-5 text-lg text-slate-600 max-w-prose reveal-on-load delay-1"
-              >
-                We build bespoke footwear tailored to your feet and your style.
-                Explore our recent work, then start your custom order in
-                minutes.
-              </p>
-              <div class="mt-8 flex gap-4 reveal-on-load delay-2">
-                <a
-                  href="custom.html"
-                  class="inline-flex items-center justify-center px-5 py-3 rounded-lg bg-brand text-slate-800 font-semibold shadow hover:bg-brand-dark transition"
-                  >Customize My Foot</a
-                >
-                <a
-                  href="contact.html"
-                  class="inline-flex items-center justify-center px-5 py-3 rounded-lg border border-slate-300 text-slate-800 font-semibold hover:border-brand hover:text-brand transition"
-                  >Contact Us</a
-                >
-              </div>
-            </div>
-            <div class="relative">
-              <div
-                class="aspect-[4/3] rounded-2xl bg-gradient-to-br from-brand/20 to-brand/0 border border-slate-200 overflow-hidden"
-              >
-                <div class="absolute inset-0 grid grid-cols-3 gap-2 p-2 md:p-3">
-                  <div
-                    class="gallery-item lightbox-item cursor-zoom-in rounded-xl bg-cover bg-center"
-                    data-gallery-src="images/IMG_0010.jpg"
-                    style="background-image: url('images/IMG_0010.jpg')"
-                  ></div>
-                  <div
-                    class="gallery-item lightbox-item cursor-zoom-in rounded-xl bg-cover bg-center"
-                    data-gallery-src="images/IMG_0413.jpg"
-                    style="background-image: url('images/IMG_0413.jpg')"
-                  ></div>
-                  <div
-                    class="gallery-item lightbox-item cursor-zoom-in rounded-xl bg-cover bg-center"
-                    data-gallery-src="images/IMG_0608.jpg"
-                    style="background-image: url('images/IMG_0608.jpg')"
-                  ></div>
-                  <div
-                    class="gallery-item lightbox-item cursor-zoom-in rounded-xl bg-cover bg-center"
-                    data-gallery-src="images/IMG_0905.jpg"
-                    style="background-image: url('images/IMG_0905.jpg')"
-                  ></div>
-                  <div
-                    class="gallery-item lightbox-item cursor-zoom-in rounded-xl bg-cover bg-center"
-                    data-gallery-src="images/IMG_1343.jpg"
-                    style="background-image: url('images/IMG_1343.jpg')"
-                  ></div>
-                  <div
-                    class="gallery-item lightbox-item cursor-zoom-in rounded-xl bg-cover bg-center"
-                    data-gallery-src="images/IMG_2319.JPG"
-                    style="background-image: url('images/IMG_2319.JPG')"
-                  ></div>
-                  <div
-                    class="gallery-item lightbox-item cursor-zoom-in rounded-xl bg-cover bg-center"
-                    data-gallery-src="images/IMG_4956.jpg"
-                    style="background-image: url('images/IMG_4956.jpg')"
-                  ></div>
-                  <div
-                    class="gallery-item lightbox-item cursor-zoom-in rounded-xl bg-cover bg-center"
-                    data-gallery-src="images/IMG_5032.jpg"
-                    style="background-image: url('images/IMG_5032.jpg')"
-                  ></div>
-                  <div
-                    class="gallery-item lightbox-item cursor-zoom-in rounded-xl bg-cover bg-center"
-                    data-gallery-src="images/IMG_5054.jpg"
-                    style="background-image: url('images/IMG_5054.jpg')"
-                  ></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="border-t border-slate-200 bg-slate-50/60">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-          <div class="flex items-end justify-between mb-6">
-            <h2 class="text-2xl md:text-3xl font-black tracking-tight">
-              Our Collection
-            </h2>
-            <a
-              href="custom.html"
-              class="text-brand font-semibold hover:underline"
-              >Start your pair →</a
-            >
-          </div>
-          <div
-            class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"
-            id="gallery-grid"
-          >
-            <!-- Images will be inserted here by JavaScript -->
-          </div>
-        </div>
-      </section>
-    </main>
-    <!-- Gallery Modal -->
-    <div
-      class="gallery-modal fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm rounded-2xl"
-      id="galleryModal"
-    >
-      <div class="absolute inset-0" id="modalCloseArea"></div>
-      <div class="relative z-10 w-full max-w-4xl mx-4 gallery-modal-content">
-        <div class="relative">
-          <img
-            id="modalImage"
-            src=""
-            alt="Gallery Image"
-            class="w-full max-h-[80vh] object-contain"
-          />
-          <div class="absolute top-4 right-4">
-            <button
-              class="bg-white/90 hover:bg-white text-slate-800 rounded-full p-2 shadow-lg transition-all"
-              id="closeModal"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
-          <button
-            class="gallery-nav-btn absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-slate-800 rounded-full p-2 shadow-lg"
-            id="prevImage"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-          </button>
-          <button
-            class="gallery-nav-btn absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-slate-800 rounded-full p-2 shadow-lg"
-            id="nextImage"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </button>
-        </div>
-      </div>
-    </div>
-    <footer class="border-t border-slate-200 bg-slate-50">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <h3 class="text-lg font-akony text-slate-900 mb-4">Bam Footwear</h3>
-            <p class="text-slate-600">
-              Crafting premium custom footwear with passion and precision.
-            </p>
-          </div>
-          <div>
-            <h3 class="text-lg font-akony text-slate-900 mb-4">Contact Us</h3>
-            <ul class="space-y-2">
-              <li class="flex items-start">
-                <svg
-                  class="h-5 w-5 text-slate-500 mr-3 mt-0.5 flex-shrink-0"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                  />
-                </svg>
-                <a
-                  href="tel:+2349065951288"
-                  class="text-slate-600 hover:text-slate-900"
-                  >+234 906 595 1288</a
-                >
-              </li>
-              <li class="flex items-start">
-                <svg
-                  class="h-5 w-5 text-slate-500 mr-3 mt-0.5 flex-shrink-0"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                  />
-                </svg>
-                <a
-                  href="mailto:Bamidelepeter54@gmail.com"
-                  class="text-slate-600 hover:text-slate-900"
-                  >Bamidelepeter54@gmail.com</a
-                >
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h3 class="text-lg font-akony text-slate-900 mb-4">Quick Links</h3>
-            <ul class="space-y-2">
-              <li>
-                <a href="index.html" class="text-slate-600 hover:text-slate-900"
-                  >Gallery</a
-                >
-              </li>
-              <li>
-                <a
-                  href="custom.html"
-                  class="text-slate-600 hover:text-slate-900"
-                  >Custom Orders</a
-                >
-              </li>
-              <li>
-                <a
-                  href="contact.html"
-                  class="text-slate-600 hover:text-slate-900"
-                  >Contact Us</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="mt-12 pt-8 border-t border-slate-200">
-          <p class="text-center text-slate-500 text-sm">
-            2023 Bam Footwear. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </footer>
-    <script src="assets/js/main.js" defer></script>
-  </body>
+				<!-- Mobile menu button -->
+				<button id="menuToggle" class="md:hidden hamburger" aria-label="Toggle menu">
+					<span class="block w-6 h-0.5 bg-slate-900 mb-1.5 transition-transform"></span>
+					<span class="block w-6 h-0.5 bg-slate-900 mb-1.5 transition-opacity"></span>
+					<span class="block w-6 h-0.5 bg-slate-900 transition-transform"></span>
+				</button>
+			</div>
+
+			<!-- Mobile menu overlay -->
+			<div id="mobileMenu" class="mobile-menu fixed inset-0 z-50 bg-white/95 backdrop-blur-sm">
+				<!-- Close button -->
+				<button class="mobile-menu-close" onclick="toggleMenu()" aria-label="Close menu">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+					</svg>
+				</button>
+
+				<div class="flex flex-col h-full items-center space-y-8">
+					<nav class="flex flex-col items-center space-y-6 text-xl">
+						<a href="index.html" class="text-slate-900 hover:text-brand font-medium transition-colors" onclick="toggleMenu()">Gallery</a>
+						<a href="custom.html" class="text-slate-900 hover:text-brand font-medium transition-colors" onclick="toggleMenu()">Custom Orders</a>
+						<a href="contact.html" class="text-slate-900 hover:text-brand font-medium transition-colors" onclick="toggleMenu()">Contact Us</a>
+					</nav>
+				</div>
+			</div>
+		</header>
+		<main>
+			<section class="relative overflow-hidden">
+				<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+					<div class="grid md:grid-cols-2 gap-10 items-center">
+						<div>
+							<h1 class="text-4xl md:text-6xl font-black tracking-tight leading-tight reveal-on-load">Crafted Uniquely For You.</h1>
+							<p class="mt-5 text-lg text-slate-600 max-w-prose reveal-on-load delay-1">We build bespoke footwear tailored to your feet and your style. Explore our recent work, then start your custom order in minutes.</p>
+							<div class="mt-8 flex gap-4 reveal-on-load delay-2">
+								<a href="custom.html" class="inline-flex items-center justify-center px-5 py-3 rounded-lg bg-brand text-slate-800 font-semibold shadow hover:bg-brand-dark transition">Customize My Foot</a>
+								<a href="contact.html" class="inline-flex items-center justify-center px-5 py-3 rounded-lg border border-slate-300 text-slate-800 font-semibold hover:border-brand hover:text-brand transition">Contact Us</a>
+							</div>
+						</div>
+						<div class="relative">
+							<div class="aspect-[4/3] rounded-2xl bg-gradient-to-br from-brand/20 to-brand/0 border border-slate-200 overflow-hidden">
+								<div class="absolute inset-0 grid grid-cols-3 gap-2 p-2 md:p-3">
+									<div class="gallery-item lightbox-item cursor-zoom-in rounded-xl bg-cover bg-center" data-gallery-src="images/IMG_0010.jpg" style="background-image: url('images/IMG_0010.jpg')"></div>
+									<div class="gallery-item lightbox-item cursor-zoom-in rounded-xl bg-cover bg-center" data-gallery-src="images/IMG_0413.jpg" style="background-image: url('images/IMG_0413.jpg')"></div>
+									<div class="gallery-item lightbox-item cursor-zoom-in rounded-xl bg-cover bg-center" data-gallery-src="images/IMG_0608.jpg" style="background-image: url('images/IMG_0608.jpg')"></div>
+									<div class="gallery-item lightbox-item cursor-zoom-in rounded-xl bg-cover bg-center" data-gallery-src="images/IMG_0905.jpg" style="background-image: url('images/IMG_0905.jpg')"></div>
+									<div class="gallery-item lightbox-item cursor-zoom-in rounded-xl bg-cover bg-center" data-gallery-src="images/IMG_1343.jpg" style="background-image: url('images/IMG_1343.jpg')"></div>
+									<div class="gallery-item lightbox-item cursor-zoom-in rounded-xl bg-cover bg-center" data-gallery-src="images/IMG_2319.JPG" style="background-image: url('images/IMG_2319.JPG')"></div>
+									<div class="gallery-item lightbox-item cursor-zoom-in rounded-xl bg-cover bg-center" data-gallery-src="images/IMG_4956.jpg" style="background-image: url('images/IMG_4956.jpg')"></div>
+									<div class="gallery-item lightbox-item cursor-zoom-in rounded-xl bg-cover bg-center" data-gallery-src="images/IMG_5032.jpg" style="background-image: url('images/IMG_5032.jpg')"></div>
+									<div class="gallery-item lightbox-item cursor-zoom-in rounded-xl bg-cover bg-center" data-gallery-src="images/IMG_5054.jpg" style="background-image: url('images/IMG_5054.jpg')"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="border-t border-slate-200 bg-slate-50/60">
+				<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+					<div class="flex items-end justify-between mb-6">
+						<h2 class="text-2xl md:text-3xl font-black tracking-tight">Our Collection</h2>
+						<a href="custom.html" class="text-brand font-semibold hover:underline">Start your pair →</a>
+					</div>
+					<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6" id="gallery-grid">
+						<!-- Images will be inserted here by JavaScript -->
+					</div>
+				</div>
+			</section>
+		</main>
+		<!-- Gallery Modal -->
+		<div class="gallery-modal fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm rounded-2xl" id="galleryModal">
+			<div class="absolute inset-0" id="modalCloseArea"></div>
+			<div class="relative z-10 w-full max-w-4xl mx-4 gallery-modal-content">
+				<div class="relative">
+					<img id="modalImage" src="" alt="Gallery Image" class="w-full max-h-[80vh] object-contain" />
+					<div class="absolute top-4 right-4">
+						<button class="bg-white/90 hover:bg-white text-slate-800 rounded-full p-2 shadow-lg transition-all" id="closeModal">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+							</svg>
+						</button>
+					</div>
+					<button class="gallery-nav-btn absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-slate-800 rounded-full p-2 shadow-lg" id="prevImage">
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+						</svg>
+					</button>
+					<button class="gallery-nav-btn absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-slate-800 rounded-full p-2 shadow-lg" id="nextImage">
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+						</svg>
+					</button>
+				</div>
+			</div>
+		</div>
+		<footer class="border-t border-slate-200 bg-slate-50">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+					<div>
+						<h3 class="text-lg font-akony text-slate-900 mb-4">Bam Footwear</h3>
+						<p class="text-slate-600">Crafting premium custom footwear with passion and precision.</p>
+					</div>
+					<div>
+						<h3 class="text-lg font-akony text-slate-900 mb-4">Contact Us</h3>
+						<ul class="space-y-2">
+							<li class="flex items-start">
+								<svg class="h-5 w-5 text-slate-500 mr-3 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+								</svg>
+								<a href="tel:+2349065951288" class="text-slate-600 hover:text-slate-900">+234 906 595 1288</a>
+							</li>
+							<li class="flex items-start">
+								<svg class="h-5 w-5 text-slate-500 mr-3 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+								</svg>
+								<a href="mailto:Bamidelepeter54@gmail.com" class="text-slate-600 hover:text-slate-900">Bamidelepeter54@gmail.com</a>
+							</li>
+						</ul>
+					</div>
+					<div>
+						<h3 class="text-lg font-akony text-slate-900 mb-4">Quick Links</h3>
+						<ul class="space-y-2">
+							<li>
+								<a href="index.html" class="text-slate-600 hover:text-slate-900">Gallery</a>
+							</li>
+							<li>
+								<a href="custom.html" class="text-slate-600 hover:text-slate-900">Custom Orders</a>
+							</li>
+							<li>
+								<a href="contact.html" class="text-slate-600 hover:text-slate-900">Contact Us</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="mt-12 pt-8 border-t border-slate-200">
+					<p class="text-center text-slate-500 text-sm">2023 Bam Footwear. All rights reserved.</p>
+				</div>
+			</div>
+		</footer>
+		<script src="assets/js/main.js" defer></script>
+	</body>
 </html>

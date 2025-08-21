@@ -1,6 +1,6 @@
 // Configuration: set your WhatsApp business number here in international format without '+' or spaces
 // Example: Nigeria +2348012345678 -> '2348012345678'
-const WHATSAPP_NUMBER = '15551234567'; // TODO: Replace with Bam Footwear business WhatsApp number
+const WHATSAPP_NUMBER = '233206081098'; // TODO: Replace with Bam Footwear business WhatsApp number
 
 function getWhatsAppNumber() {
   const digitsOnly = (WHATSAPP_NUMBER || '').replace(/[^0-9]/g, '');
@@ -25,39 +25,86 @@ function openWhatsApp(message) {
 
 function initYear() {
   const yearEls = document.querySelectorAll('#year');
-  yearEls.forEach((el) => (el.textContent = new Date().getFullYear()));
+  if (yearEls.length > 0) {
+    yearEls.forEach((el) => (el.textContent = new Date().getFullYear()));
+  }
 }
 
 function initGSAP() {
   if (!window.gsap) return;
-  const tl = gsap.timeline();
-  tl.from('header', { y: -20, opacity: 0, duration: 0.5, ease: 'power2.out' });
-  gsap.utils.toArray('.reveal-on-load').forEach((el, i) => {
-    gsap.from(el, { y: 16, opacity: 0, duration: 0.6, delay: 0.1 * i, ease: 'power2.out' });
-  });
-  gsap.utils.toArray('.gallery-item').forEach((el, i) => {
-    gsap.from(el, { scale: 0.95, opacity: 0, duration: 0.6, delay: 0.05 * i, ease: 'power2.out' });
-  });
-  gsap.utils.toArray('.gallery-card').forEach((el, i) => {
-    gsap.from(el, { y: 20, opacity: 0, duration: 0.5, delay: 0.03 * i, ease: 'power2.out' });
-  });
+
+  const header = document.querySelector('header');
+  if (header) {
+    const tl = gsap.timeline();
+    tl.from('header', { y: -20, opacity: 0, duration: 0.5, ease: 'power2.out' });
+  }
+
+  const revealElements = document.querySelectorAll('.reveal-on-load');
+  if (revealElements.length > 0) {
+    gsap.utils.toArray('.reveal-on-load').forEach((el, i) => {
+      gsap.from(el, { y: 16, opacity: 0, duration: 0.6, delay: 0.1 * i, ease: 'power2.out' });
+    });
+  }
+
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  if (galleryItems.length > 0) {
+    gsap.utils.toArray('.gallery-item').forEach((el, i) => {
+      gsap.from(el, { scale: 0.95, opacity: 0, duration: 0.6, delay: 0.05 * i, ease: 'power2.out' });
+    });
+  }
+
+  const galleryCards = document.querySelectorAll('.gallery-card');
+  if (galleryCards.length > 0) {
+    gsap.utils.toArray('.gallery-card').forEach((el, i) => {
+      gsap.from(el, { y: 20, opacity: 0, duration: 0.5, delay: 0.03 * i, ease: 'power2.out' });
+    });
+  }
 }
 
 function initContactForm() {
   const form = document.getElementById('contactForm');
-  if (!form) return;
+  if (!form) {
+    console.log('Contact form not found - skipping contact form initialization');
+    return;
+  }
+
+  console.log('Initializing contact form');
+
+  // Add honeypot field to contact form
+  addHoneypotField(form);
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const name = form.name.value.trim();
-    const phone = form.phone.value.trim();
-    const message = form.message.value.trim();
-    if (!name || !phone || !message) return;
+
+    console.log('Contact form submitted');
+
+    // Check honeypot field
+    if (isHoneypotTriggered(form)) {
+      console.log('Spam detected - form submission blocked');
+      return;
+    }
+
+    const name = form.name ? form.name.value.trim() : '';
+    const phone = form.phone ? form.phone.value.trim() : '';
+    const message = form.message ? form.message.value.trim() : '';
+
+    console.log('Form data:', { name, phone, message });
+
+    if (!name || !phone || !message) {
+      console.warn('Missing required fields');
+      alert('Please fill in all required fields');
+      return;
+    }
+
     const text = `New Contact Request - Bam Footwear\nName: ${name}\nPhone: ${phone}\nMessage: ${message}`;
+    console.log('Opening WhatsApp with message:', text);
     openWhatsApp(text);
   });
 }
 
 function toggleSection(el, show) {
+  if (!el) return;
+
   if (show) {
     el.classList.remove('hidden');
   } else {
@@ -67,7 +114,16 @@ function toggleSection(el, show) {
 
 function initCustomForm() {
   const form = document.getElementById('customForm');
-  if (!form) return;
+  if (!form) {
+    console.log('Custom form not found - skipping custom form initialization');
+    return;
+  }
+
+  console.log('Initializing custom form');
+
+  // Add honeypot field to custom form
+  addHoneypotField(form);
+
   const homeVisitFields = document.getElementById('homeVisitFields');
   const enterNowFields = document.getElementById('enterNowFields');
 
@@ -81,40 +137,127 @@ function initCustomForm() {
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const firstName = form.firstName.value.trim();
-    const lastName = form.lastName.value.trim();
-    const phone = form.phone.value.trim();
-    const email = form.email.value.trim();
-    const method = form.method.value;
+
+    console.log('Custom form submitted');
+
+    // Check honeypot field
+    if (isHoneypotTriggered(form)) {
+      console.log('Spam detected - form submission blocked');
+      return;
+    }
+
+    const firstName = form.firstName ? form.firstName.value.trim() : '';
+    const lastName = form.lastName ? form.lastName.value.trim() : '';
+    const phone = form.phone ? form.phone.value.trim() : '';
+    const email = form.email ? form.email.value.trim() : '';
+    const method = form.method ? form.method.value : '';
+
+    console.log('Form data:', { firstName, lastName, phone, email, method });
+
+    if (!firstName || !lastName || !phone || !email) {
+      console.warn('Missing required fields');
+      alert('Please fill in all required fields');
+      return;
+    }
 
     let details = '';
     if (method === 'homeVisit') {
-      const addressLink = form.addressLink.value.trim();
+      const addressLink = form.addressLink ? form.addressLink.value.trim() : '';
       details = `Measurement method: Request visit\nLocation link/coords: ${addressLink || 'N/A'}`;
     } else if (method === 'visitOffice') {
       details = 'Measurement method: Visit company office';
     } else if (method === 'enterNow') {
-      const length = form.footLength.value.trim();
-      const width = form.footWidth.value.trim();
-      const size = form.shoeSize.value.trim();
-      const notes = form.notes.value.trim();
+      const length = form.footLength ? form.footLength.value.trim() : '';
+      const width = form.footWidth ? form.footWidth.value.trim() : '';
+      const size = form.shoeSize ? form.shoeSize.value.trim() : '';
+      const notes = form.notes ? form.notes.value.trim() : '';
       details = `Measurement method: Entered now\nFoot length (cm): ${length || 'N/A'}\nFoot width (cm): ${width || 'N/A'}\nShoe size: ${size || 'N/A'}\nNotes: ${notes || 'N/A'}`;
     }
 
     const text = `New Custom Order - Bam Footwear\nName: ${firstName} ${lastName}\nPhone: ${phone}\nEmail: ${email}\n${details}`;
+    console.log('Opening WhatsApp with message:', text);
     openWhatsApp(text);
   });
 }
 
+// Honeypot functions for spam protection
+function addHoneypotField(form) {
+  if (!form) return;
+
+  // Check if honeypot already exists
+  if (form.querySelector('input[name="website"]')) {
+    return;
+  }
+
+  // Create honeypot container
+  const honeypotContainer = document.createElement('div');
+  honeypotContainer.style.position = 'absolute';
+  honeypotContainer.style.left = '-9999px';
+  honeypotContainer.style.top = '-9999px';
+  honeypotContainer.style.visibility = 'hidden';
+  honeypotContainer.style.opacity = '0';
+  honeypotContainer.setAttribute('aria-hidden', 'true');
+  honeypotContainer.setAttribute('tabindex', '-1');
+
+  // Create honeypot checkbox
+  const honeypotCheckbox = document.createElement('input');
+  honeypotCheckbox.type = 'checkbox';
+  honeypotCheckbox.name = 'website';
+  honeypotCheckbox.id = 'website_' + Math.random().toString(36).substr(2, 9);
+  honeypotCheckbox.setAttribute('autocomplete', 'off');
+
+  // Create honeypot label
+  const honeypotLabel = document.createElement('label');
+  honeypotLabel.setAttribute('for', honeypotCheckbox.id);
+  honeypotLabel.textContent = "Check if you're not human";
+
+  // Assemble honeypot field
+  honeypotContainer.appendChild(honeypotCheckbox);
+  honeypotContainer.appendChild(honeypotLabel);
+
+  // Insert honeypot field into form safely
+  try {
+    const firstFormElement = form.querySelector('input, textarea, select');
+    if (firstFormElement && firstFormElement.parentNode === form) {
+      form.insertBefore(honeypotContainer, firstFormElement);
+    } else {
+      // If no suitable element found or element is not a direct child, append to form
+      form.appendChild(honeypotContainer);
+    }
+  } catch (error) {
+    console.warn('Could not insert honeypot field:', error);
+    // Fallback: append to form
+    form.appendChild(honeypotContainer);
+  }
+}
+
+function isHoneypotTriggered(form) {
+  if (!form) return false;
+  const honeypotField = form.querySelector('input[name="website"]');
+  return honeypotField && honeypotField.checked;
+}
+
 function initGallery() {
   const galleryGrid = document.getElementById('gallery-grid');
+  if (!galleryGrid) {
+    console.log('Gallery grid not found - skipping gallery initialization');
+    return;
+  }
+
+  console.log('Initializing gallery');
+
   const galleryModal = document.getElementById('galleryModal');
   const modalImage = document.getElementById('modalImage');
   const closeModal = document.getElementById('closeModal');
   const modalCloseArea = document.getElementById('modalCloseArea');
   const prevBtn = document.getElementById('prevImage');
   const nextBtn = document.getElementById('nextImage');
-  
+
+  // Only proceed if all required elements exist
+  if (!galleryModal || !modalImage || !closeModal || !modalCloseArea || !prevBtn || !nextBtn) {
+    console.warn('Some gallery modal elements not found - gallery functionality may be limited');
+  }
+
   // List of all image files from the images folder
   const imageFiles = [
     'IMG_0010.jpg',
@@ -133,7 +276,7 @@ function initGallery() {
   // Generate gallery items
   function generateGallery() {
     galleryGrid.innerHTML = '';
-    
+
     imageFiles.forEach((image, index) => {
       const item = document.createElement('div');
       item.className = 'group rounded-xl overflow-hidden border border-slate-200 bg-white shadow-sm gallery-card';
@@ -149,13 +292,13 @@ function initGallery() {
       `;
       galleryGrid.appendChild(item);
     });
-    
+
     // Add click event listeners to all gallery images
     document.querySelectorAll('.gallery-image').forEach((img, index) => {
       img.addEventListener('click', () => openGallery(index));
     });
   }
-  
+
   // Helper function to get image name for display
   function getImageName(filename) {
     const nameMap = {
@@ -173,7 +316,7 @@ function initGallery() {
     };
     return nameMap[filename] || filename.split('.')[0].replace(/_/g, ' ');
   }
-  
+
   // Helper function to get image description
   function getImageDescription(filename) {
     const descMap = {
@@ -191,63 +334,80 @@ function initGallery() {
     };
     return descMap[filename] || 'Handcrafted with care';
   }
-  
+
   let currentIndex = 0;
-  
+
   // Open gallery modal
   function openGallery(index) {
+    if (!galleryModal || !modalImage) return;
+
     currentIndex = index;
     const imageUrl = `images/${imageFiles[currentIndex]}`;
     modalImage.src = imageUrl;
     modalImage.alt = getImageName(imageFiles[currentIndex]);
-    
+
     // Ensure the modal image has rounded corners
     modalImage.classList.add('rounded-lg');
-    
+
     galleryModal.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
-  
+
   // Close gallery modal
   function closeGallery() {
+    if (!galleryModal) return;
+
     galleryModal.classList.remove('active');
     document.body.style.overflow = '';
   }
-  
+
   // Update modal image
   function updateModalImage() {
+    if (!modalImage) return;
+
     const imageSrc = `images/${imageFiles[currentIndex]}`;
     modalImage.src = imageSrc;
     modalImage.alt = getImageName(imageFiles[currentIndex]);
   }
-  
+
   // Navigation functions
   function showNextImage() {
     currentIndex = (currentIndex + 1) % imageFiles.length;
     updateModalImage();
   }
-  
+
   function showPrevImage() {
     currentIndex = (currentIndex - 1 + imageFiles.length) % imageFiles.length;
     updateModalImage();
   }
-  
-  // Event listeners
-  closeModal.addEventListener('click', closeGallery);
-  modalCloseArea.addEventListener('click', closeGallery);
-  nextBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    showNextImage();
-  });
-  prevBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    showPrevImage();
-  });
-  
+
+  // Event listeners - only add if elements exist
+  if (closeModal) {
+    closeModal.addEventListener('click', closeGallery);
+  }
+
+  if (modalCloseArea) {
+    modalCloseArea.addEventListener('click', closeGallery);
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showNextImage();
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showPrevImage();
+    });
+  }
+
   // Keyboard navigation
   document.addEventListener('keydown', (e) => {
-    if (!galleryModal.classList.contains('active')) return;
-    
+    if (!galleryModal || !galleryModal.classList.contains('active')) return;
+
     switch (e.key) {
       case 'Escape':
         closeGallery();
@@ -260,20 +420,51 @@ function initGallery() {
         break;
     }
   });
-  
+
   // Initialize the gallery
   generateGallery();
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  initYear();
-  initGSAP();
-  initContactForm();
-  initCustomForm();
-  initGallery();
-  initLightbox();
-  initMobileMenu();
-});
+// Mobile menu functionality
+function initMobileMenu() {
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  if (!menuToggle || !mobileMenu) {
+    console.log('Mobile menu elements not found - skipping mobile menu initialization');
+    return;
+  }
+
+  console.log('Initializing mobile menu');
+
+  function toggleMenu() {
+    menuToggle.classList.toggle('active');
+    mobileMenu.classList.toggle('active');
+    document.body.classList.toggle('menu-open');
+  }
+
+  menuToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleMenu();
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    const isClickInsideMenu = mobileMenu.contains(e.target) || menuToggle.contains(e.target);
+    if (!isClickInsideMenu && mobileMenu.classList.contains('active')) {
+      toggleMenu();
+    }
+  });
+
+  // Make toggleMenu available globally
+  window.toggleMenu = function () {
+    if (menuToggle && mobileMenu) {
+      menuToggle.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      document.body.classList.toggle('menu-open');
+    }
+  };
+}
 
 // -----------------------------
 // Lightbox (click-to-zoom gallery)
@@ -293,7 +484,12 @@ let lightboxState = {
 
 function initLightbox() {
   const items = Array.from(document.querySelectorAll('.lightbox-item'));
-  if (items.length === 0) return;
+  if (items.length === 0) {
+    console.log('No lightbox items found - skipping lightbox initialization');
+    return;
+  }
+
+  console.log('Initializing lightbox');
 
   // Build list of image sources in DOM order
   lightboxState.sources = items
@@ -408,16 +604,20 @@ function openLightbox(index, animateFrom) {
 
   // Show overlay with animation
   const el = lightboxState.overlayEl;
-  el.classList.remove('hidden');
-  lightboxState.isOpen = true;
-  if (window.gsap) {
-    gsap.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: 'power2.out' });
+  if (el) {
+    el.classList.remove('hidden');
+    lightboxState.isOpen = true;
+    if (window.gsap) {
+      gsap.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: 'power2.out' });
+    }
   }
 }
 
 function closeLightbox() {
   if (!lightboxState.isOpen) return;
   const el = lightboxState.overlayEl;
+  if (!el) return;
+
   if (window.gsap) {
     gsap.to(el, {
       opacity: 0,
@@ -442,17 +642,17 @@ function setLightboxImage(src, { animateFrom } = {}) {
   // Get the title from the parent element or use a default
   const galleryItem = document.querySelector(`[data-gallery-src="${src}"]`);
   const title = galleryItem?.closest('.gallery-card')?.querySelector('.font-semibold')?.textContent || 'Bam Footwear';
-  
+
   if (titleEl) {
     titleEl.textContent = title;
   }
 
-  if (animateFrom) {
+  if (animateFrom && window.gsap) {
     // Animate from the clicked thumbnail
     const rect = animateFrom.getBoundingClientRect();
     const scaleX = rect.width / window.innerWidth;
     const scaleY = rect.height / window.innerHeight;
-    
+
     gsap.set(imageEl, {
       x: rect.left + rect.width / 2 - window.innerWidth / 2,
       y: rect.top + rect.height / 2 - window.innerHeight / 2,
@@ -470,7 +670,7 @@ function setLightboxImage(src, { animateFrom } = {}) {
       duration: 0.3,
       ease: 'power2.out',
     });
-  } else {
+  } else if (window.gsap) {
     // Fade in
     gsap.fromTo(
       imageEl,
@@ -496,41 +696,20 @@ function showPrevImage() {
   setLightboxImage(lightboxState.sources[prevIndex]);
 }
 
-// Mobile menu functionality
-function initMobileMenu() {
-  const menuToggle = document.getElementById('menuToggle');
-  const mobileMenu = document.getElementById('mobileMenu');
-  
-  function toggleMenu() {
-      menuToggle.classList.toggle('active');
-      mobileMenu.classList.toggle('active');
-      document.body.classList.toggle('menu-open');
-  }
-  
-  if (menuToggle) {
-      menuToggle.addEventListener('click', (e) => {
-          e.stopPropagation();
-          toggleMenu();
-      });
-  }
-  
-  // Close menu when clicking outside
-  document.addEventListener('click', (e) => {
-      const isClickInsideMenu = mobileMenu.contains(e.target) || 
-                              (menuToggle && menuToggle.contains(e.target));
-      if (!isClickInsideMenu && mobileMenu.classList.contains('active')) {
-          toggleMenu();
-      }
-  });
-}
+// Initialize all functionality when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('DOM loaded - initializing page functionality');
 
-// Make toggleMenu available globally
-window.toggleMenu = function() {
-  const menuToggle = document.getElementById('menuToggle');
-  const mobileMenu = document.getElementById('mobileMenu');
-  if (menuToggle && mobileMenu) {
-      menuToggle.classList.toggle('active');
-      mobileMenu.classList.toggle('active');
-      document.body.classList.toggle('menu-open');
-  }
-};
+  // Initialize universal functions (always run)
+  initYear();
+  initGSAP();
+  initMobileMenu();
+
+  // Initialize page-specific functions (only run if elements exist)
+  initContactForm();    // Only runs if #contactForm exists
+  initCustomForm();     // Only runs if #customForm exists  
+  initGallery();        // Only runs if #gallery-grid exists
+  initLightbox();       // Only runs if .lightbox-item elements exist
+
+  console.log('Page initialization complete');
+});

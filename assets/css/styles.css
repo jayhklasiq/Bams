@@ -1,4 +1,4 @@
-Gallery Modal Fixes
+/* Gallery Modal Fixes */
 #modalImage {
     border-radius: 12px !important;
     overflow: hidden;
@@ -15,7 +15,7 @@ Gallery Modal Fixes
 
 /* Mobile Menu Button */
 .hamburger {
-    display: none; /* Hidden by default */
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
     width: 24px;
@@ -23,18 +23,9 @@ Gallery Modal Fixes
     cursor: pointer;
     z-index: 60;
     position: relative;
-}
-
-/* Show hamburger only on mobile */
-@media (max-width: 767px) {
-    .hamburger {
-        display: flex;
-    }
-    
-    /* Hide desktop nav on mobile */
-    nav.hidden.md\\:flex {
-        display: none !important;
-    }
+    background: none;
+    border: none;
+    padding: 0;
 }
 
 .hamburger span {
@@ -45,30 +36,34 @@ Gallery Modal Fixes
     transition: all 0.3s ease;
 }
 
+/* Hamburger animation */
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
 /* Mobile menu styles */
 .mobile-menu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 50;
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
+    transform: translateY(-100%);
 }
 
 .mobile-menu.active {
     opacity: 1;
     visibility: visible;
+    transform: translateY(0);
 }
 
+/* Mobile menu navigation links */
 .mobile-menu nav {
     display: flex;
     flex-direction: column;
@@ -76,14 +71,75 @@ Gallery Modal Fixes
     text-align: center;
 }
 
-.mobile-menu a {
-    font-size: 1.25rem;
-    font-weight: 500;
-    color: #0f172a;
-    text-decoration: none;
-    transition: color 0.2s ease;
+.mobile-menu nav a {
+    font-size: 1.5rem !important;
+    font-weight: 600 !important;
+    color: #0f172a !important;
+    text-decoration: none !important;
+    transition: color 0.2s ease !important;
+    display: block !important;
+    padding: 0.75rem 0 !important;
 }
 
-.mobile-menu a:hover {
-    color: #0ea5e9;
+.mobile-menu nav a:hover {
+    color: #0ea5e9 !important;
+}
+
+/* Close button for mobile menu */
+.mobile-menu-close {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 70;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.mobile-menu-close:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: scale(1.1);
+}
+
+.mobile-menu-close svg {
+    width: 24px;
+    height: 24px;
+    color: #0f172a;
+}
+
+/* Blur effect for page content when menu is open */
+body.menu-open > *:not(header) {
+    filter: blur(8px);
+    transition: filter 0.3s ease;
+}
+
+body.menu-open header > div:first-child {
+    filter: blur(8px);
+    transition: filter 0.3s ease;
+}
+
+/* Ensure mobile menu doesn't get blurred */
+body.menu-open .mobile-menu {
+    filter: none !important;
+}
+
+/* Prevent body scroll when menu is open */
+body.menu-open {
+    overflow: hidden;
+}
+
+/* Ensure menu content is fully visible */
+.mobile-menu .flex.flex-col.h-full {
+    padding: 4rem 2rem 2rem 2rem;
+    box-sizing: border-box;
 }
