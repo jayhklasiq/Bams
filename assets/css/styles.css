@@ -1,0 +1,89 @@
+Gallery Modal Fixes
+#modalImage {
+    border-radius: 12px !important;
+    overflow: hidden;
+}
+
+.gallery-modal {
+    border-radius: 0 !important;
+}
+
+.gallery-modal-content {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Mobile Menu Button */
+.hamburger {
+    display: none; /* Hidden by default */
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 20px;
+    cursor: pointer;
+    z-index: 60;
+    position: relative;
+}
+
+/* Show hamburger only on mobile */
+@media (max-width: 767px) {
+    .hamburger {
+        display: flex;
+    }
+    
+    /* Hide desktop nav on mobile */
+    nav.hidden.md\\:flex {
+        display: none !important;
+    }
+}
+
+.hamburger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: #0f172a; /* slate-900 */
+    transition: all 0.3s ease;
+}
+
+/* Mobile menu styles */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-menu nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+}
+
+.mobile-menu a {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #0f172a;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.mobile-menu a:hover {
+    color: #0ea5e9;
+}

@@ -271,6 +271,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
   initCustomForm();
   initGallery();
+  initLightbox();
+  initMobileMenu();
 });
 
 // -----------------------------
@@ -493,3 +495,42 @@ function showPrevImage() {
   lightboxState.currentIndex = prevIndex;
   setLightboxImage(lightboxState.sources[prevIndex]);
 }
+
+// Mobile menu functionality
+function initMobileMenu() {
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  
+  function toggleMenu() {
+      menuToggle.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      document.body.classList.toggle('menu-open');
+  }
+  
+  if (menuToggle) {
+      menuToggle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          toggleMenu();
+      });
+  }
+  
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+      const isClickInsideMenu = mobileMenu.contains(e.target) || 
+                              (menuToggle && menuToggle.contains(e.target));
+      if (!isClickInsideMenu && mobileMenu.classList.contains('active')) {
+          toggleMenu();
+      }
+  });
+}
+
+// Make toggleMenu available globally
+window.toggleMenu = function() {
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (menuToggle && mobileMenu) {
+      menuToggle.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      document.body.classList.toggle('menu-open');
+  }
+};

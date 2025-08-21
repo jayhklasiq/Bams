@@ -12,6 +12,7 @@
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%A6%9A%3C/text%3E%3C/svg%3E"
     />
+    <link href="assets/css/styles.css" rel="stylesheet" />
     <script>
       tailwind = {
         config: {
@@ -138,6 +139,49 @@
           <a class="hover:text-brand" href="contact.html">Contact Us</a>
         </nav>
       </div>
+      <!-- Mobile menu button -->
+      <div class="md:hidden">
+        <button id="menuToggle" class="hamburger" aria-label="Toggle menu">
+          <span
+            class="block w-6 h-0.5 bg-slate-900 mb-1.5 transition-transform"
+          ></span>
+          <span
+            class="block w-6 h-0.5 bg-slate-900 mb-1.5 transition-opacity"
+          ></span>
+          <span
+            class="block w-6 h-0.5 bg-slate-900 transition-transform"
+          ></span>
+        </button>
+      </div>
+
+      <!-- Mobile menu overlay -->
+      <div
+        id="mobileMenu"
+        class="fixed inset-0 z-50 bg-white/95 backdrop-blur-sm hidden"
+      >
+        <div class="flex flex-col h-full items-center justify-center space-y-8">
+          <nav class="flex flex-col items-center space-y-6 text-xl">
+            <a
+              href="index.html"
+              class="text-slate-900 hover:text-brand font-medium transition-colors"
+              onclick="toggleMenu()"
+              >Gallery</a
+            >
+            <a
+              href="custom.html"
+              class="text-slate-900 hover:text-brand font-medium transition-colors"
+              onclick="toggleMenu()"
+              >Custom Orders</a
+            >
+            <a
+              href="contact.html"
+              class="text-slate-900 hover:text-brand font-medium transition-colors"
+              onclick="toggleMenu()"
+              >Contact Us</a
+            >
+          </nav>
+        </div>
+      </div>
     </header>
     <main>
       <section class="relative overflow-hidden">
@@ -159,7 +203,7 @@
               <div class="mt-8 flex gap-4 reveal-on-load delay-2">
                 <a
                   href="custom.html"
-                  class="inline-flex items-center justify-center px-5 py-3 rounded-lg bg-brand text-white font-semibold shadow hover:bg-brand-dark transition"
+                  class="inline-flex items-center justify-center px-5 py-3 rounded-lg bg-brand text-slate-800 font-semibold shadow hover:bg-brand-dark transition"
                   >Customize My Foot</a
                 >
                 <a
@@ -248,7 +292,7 @@
     </main>
     <!-- Gallery Modal -->
     <div
-      class="gallery-modal fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+      class="gallery-modal fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm rounded-2xl"
       id="galleryModal"
     >
       <div class="absolute inset-0" id="modalCloseArea"></div>
