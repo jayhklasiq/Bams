@@ -1,6 +1,6 @@
 // Configuration: set your WhatsApp business number here in international format without '+' or spaces
 // Example: Nigeria +2348012345678 -> '2348012345678'
-const WHATSAPP_NUMBER = '233206081098'; // TODO: Replace with Bam Footwear business WhatsApp number
+const WHATSAPP_NUMBER = '2349065951288'; // TODO: Replace with Bam Footwear business WhatsApp number
 
 function getWhatsAppNumber() {
   const digitsOnly = (WHATSAPP_NUMBER || '').replace(/[^0-9]/g, '');
@@ -237,6 +237,60 @@ function isHoneypotTriggered(form) {
   return honeypotField && honeypotField.checked;
 }
 
+// Lazy loading functionality
+function initLazyLoading() {
+  // Check if Intersection Observer is supported
+  if ('IntersectionObserver' in window) {
+    const lazyImageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const lazyImage = entry.target;
+
+          // Handle background images
+          if (lazyImage.dataset.src) {
+            lazyImage.style.backgroundImage = `url(${lazyImage.dataset.src})`;
+            lazyImage.classList.remove('lazy-load');
+            lazyImage.classList.add('lazy-loaded');
+          }
+
+          // Handle regular img elements
+          if (lazyImage.tagName === 'IMG' && lazyImage.dataset.src) {
+            lazyImage.src = lazyImage.dataset.src;
+            lazyImage.classList.remove('lazy-load');
+            lazyImage.classList.add('lazy-loaded');
+          }
+
+          lazyImageObserver.unobserve(lazyImage);
+        }
+      });
+    }, {
+      // Load images when they're 100px away from entering viewport
+      rootMargin: '100px 0px',
+      threshold: 0.01
+    });
+
+    // Observe all lazy load elements
+    const lazyImages = document.querySelectorAll('.lazy-load');
+    lazyImages.forEach((lazyImage) => {
+      lazyImageObserver.observe(lazyImage);
+    });
+  } else {
+    // Fallback for browsers without Intersection Observer support
+    const lazyImages = document.querySelectorAll('.lazy-load');
+    lazyImages.forEach((lazyImage) => {
+      if (lazyImage.dataset.src) {
+        if (lazyImage.tagName === 'IMG') {
+          lazyImage.src = lazyImage.dataset.src;
+        } else {
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.src})`;
+        }
+        lazyImage.classList.remove('lazy-load');
+        lazyImage.classList.add('lazy-loaded');
+      }
+    });
+  }
+}
+
 function initGallery() {
   const galleryGrid = document.getElementById('gallery-grid');
   if (!galleryGrid) {
@@ -258,32 +312,35 @@ function initGallery() {
     console.warn('Some gallery modal elements not found - gallery functionality may be limited');
   }
 
-  // List of all image files from the images folder
+  // Updated list of WebP image files
   const imageFiles = [
-    'IMG_0010.jpg',
-    'IMG_0413.jpg',
-    'IMG_0608.jpg',
-    'IMG_0905.jpg',
-    'IMG_1343.jpg',
-    'IMG_2319.JPG',
-    'IMG_4956.jpg',
-    'IMG_5032.jpg',
-    'IMG_5054.jpg',
-    'IMG_5117.jpg',
-    'IMG_7096.JPG'
+    'IMG_0010.webp',
+    'IMG_0413.webp',
+    'IMG_0608.webp',
+    'IMG_0905.webp',
+    'IMG_1343.webp',
+    'IMG_2319.webp',
+    'IMG_4956.webp',
+    'IMG_5032.webp',
+    'IMG_5054.webp',
+    'IMG_5117.webp',
+    'IMG_7096.webp'
   ];
 
-  // Generate gallery items
+  // Generate gallery items with lazy loading
   function generateGallery() {
     galleryGrid.innerHTML = '';
 
     imageFiles.forEach((image, index) => {
       const item = document.createElement('div');
       item.className = 'group rounded-xl overflow-hidden border border-slate-200 bg-white shadow-sm gallery-card';
+
+      // Create gallery item with lazy loading
       item.innerHTML = `
-        <div class="aspect-square bg-cover bg-center gallery-image" 
+        <div class="aspect-square bg-cover bg-center gallery-image lazy-load" 
              data-index="${index}"
-             style="background-image: url('images/${image}'); cursor: pointer;">
+             data-src="images/${image}"
+             style="background-color: #f1f5f9; cursor: pointer;">
         </div>
         <div class="p-3">
           <p class="font-semibold">${getImageName(image)}</p>
@@ -292,6 +349,9 @@ function initGallery() {
       `;
       galleryGrid.appendChild(item);
     });
+
+    // Initialize lazy loading for the new gallery items
+    initLazyLoading();
 
     // Add click event listeners to all gallery images
     document.querySelectorAll('.gallery-image').forEach((img, index) => {
@@ -302,17 +362,17 @@ function initGallery() {
   // Helper function to get image name for display
   function getImageName(filename) {
     const nameMap = {
-      'IMG_0010.jpg': 'Classic Brown',
-      'IMG_0413.jpg': 'Urban Black',
-      'IMG_0608.jpg': 'Elegant Tan',
-      'IMG_0905.jpg': 'Midnight Blue',
-      'IMG_1343.jpg': 'Rustic Red',
-      'IMG_2319.JPG': 'Olive Green',
-      'IMG_4956.jpg': 'Charcoal Grey',
-      'IMG_5032.jpg': 'Chestnut Brown',
-      'IMG_5054.jpg': 'Navy Blue',
-      'IMG_5117.jpg': 'Mocha Brown',
-      'IMG_7096.JPG': 'Jet Black'
+      'IMG_0010.webp': 'Classic Brown',
+      'IMG_0413.webp': 'Urban Black',
+      'IMG_0608.webp': 'Elegant Tan',
+      'IMG_0905.webp': 'Midnight Blue',
+      'IMG_1343.webp': 'Rustic Red',
+      'IMG_2319.webp': 'Olive Green',
+      'IMG_4956.webp': 'Charcoal Grey',
+      'IMG_5032.webp': 'Chestnut Brown',
+      'IMG_5054.webp': 'Navy Blue',
+      'IMG_5117.webp': 'Mocha Brown',
+      'IMG_7096.webp': 'Jet Black'
     };
     return nameMap[filename] || filename.split('.')[0].replace(/_/g, ' ');
   }
@@ -320,17 +380,17 @@ function initGallery() {
   // Helper function to get image description
   function getImageDescription(filename) {
     const descMap = {
-      'IMG_0010.jpg': 'Premium leather finish',
-      'IMG_0413.jpg': 'Sleek modern design',
-      'IMG_0608.jpg': 'Handcrafted elegance',
-      'IMG_0905.jpg': 'Deep rich color',
-      'IMG_1343.jpg': 'Vintage inspired',
-      'IMG_2319.JPG': 'Eco-friendly materials',
-      'IMG_4956.jpg': 'Urban sophistication',
-      'IMG_5032.jpg': 'Classic comfort',
-      'IMG_5054.jpg': 'Timeless style',
-      'IMG_5117.jpg': 'Luxurious texture',
-      'IMG_7096.JPG': 'Minimalist design'
+      'IMG_0010.webp': 'Premium leather finish',
+      'IMG_0413.webp': 'Sleek modern design',
+      'IMG_0608.webp': 'Handcrafted elegance',
+      'IMG_0905.webp': 'Deep rich color',
+      'IMG_1343.webp': 'Vintage inspired',
+      'IMG_2319.webp': 'Eco-friendly materials',
+      'IMG_4956.webp': 'Urban sophistication',
+      'IMG_5032.webp': 'Classic comfort',
+      'IMG_5054.webp': 'Timeless style',
+      'IMG_5117.webp': 'Luxurious texture',
+      'IMG_7096.webp': 'Minimalist design'
     };
     return descMap[filename] || 'Handcrafted with care';
   }
@@ -704,6 +764,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initYear();
   initGSAP();
   initMobileMenu();
+  initLazyLoading(); // Initialize lazy loading for all pages
 
   // Initialize page-specific functions (only run if elements exist)
   initContactForm();    // Only runs if #contactForm exists
