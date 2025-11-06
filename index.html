@@ -25,7 +25,7 @@
 			};
 		</script>
 		<script src="https://cdn.tailwindcss.com"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-qpbNo6Upk0YvGgTgTg7yqJk/HRfP9wra6nZBqNhI7Zk2gk2Xn3S3mHDEfS3A4dWcAF0aLz3w3dD8h8Zc6o6XRl8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 		<style>
 			/* Akony Font */
 			@font-face {
@@ -44,12 +44,22 @@
 			}
 
 			/* Apply fonts */
-			h1, h2, h3, h4, h5, h6, .font-akony, 
-      .gallery-card p:first-child,  /* Footwear names */
-      .btn-custom,  /* Custom buttons */
-      .measurement-option label,  /* Measurement options */
-      nav a,  /* Navigation links */
-      .btn-contact {
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			h6,
+			.font-akony,
+			.gallery-card p:first-child,
+			/* Footwear names */
+			.btn-custom,
+			/* Custom buttons */
+			.measurement-option label,
+			/* Measurement options */
+			nav a,
+			/* Navigation links */
+			.btn-contact {
 				/* Contact button */
 				font-family: "Akony", sans-serif;
 				letter-spacing: 0.5px;
@@ -64,6 +74,7 @@
 				cursor: pointer;
 				transition: transform 0.3s ease, box-shadow 0.3s ease;
 			}
+
 			.gallery-card:hover {
 				transform: translateY(-4px);
 				box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
@@ -77,30 +88,37 @@
 			.gallery-item {
 				transition: transform 0.3s ease, box-shadow 0.3s ease;
 			}
+
 			.gallery-item:hover {
 				transform: translateY(-4px);
 				box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 			}
+
 			.gallery-modal {
 				opacity: 0;
 				visibility: hidden;
 				transition: opacity 0.3s ease, visibility 0.3s ease;
 			}
+
 			.gallery-modal.active {
 				opacity: 1;
 				visibility: visible;
 			}
+
 			.gallery-modal-content {
 				transform: scale(0.9);
 				transition: transform 0.3s ease;
 			}
+
 			.gallery-modal.active .gallery-modal-content {
 				transform: scale(1);
 			}
+
 			.gallery-nav-btn {
 				opacity: 0.7;
 				transition: opacity 0.2s ease, transform 0.2s ease;
 			}
+
 			.gallery-nav-btn:hover {
 				opacity: 1;
 				transform: scale(1.1);
@@ -117,7 +135,6 @@
 					<a class="hover:text-brand" href="custom.html">Custom My Foot</a>
 					<a class="hover:text-brand" href="contact.html">Contact Us</a>
 				</nav>
-
 				<!-- Mobile menu button -->
 				<button id="menuToggle" class="md:hidden hamburger" aria-label="Toggle menu">
 					<span class="block w-6 h-0.5 bg-slate-900 mb-1.5 transition-transform"></span>
@@ -125,7 +142,6 @@
 					<span class="block w-6 h-0.5 bg-slate-900 transition-transform"></span>
 				</button>
 			</div>
-
 			<!-- Mobile menu overlay -->
 			<div id="mobileMenu" class="mobile-menu fixed inset-0 z-50 bg-white/95 backdrop-blur-sm">
 				<!-- Close button -->
@@ -134,7 +150,6 @@
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
 					</svg>
 				</button>
-
 				<div class="flex flex-col h-full items-center space-y-8">
 					<nav class="flex flex-col items-center space-y-6 text-xl">
 						<a href="index.html" class="text-slate-900 hover:text-brand font-medium transition-colors" onclick="toggleMenu()">Gallery</a>
@@ -228,12 +243,12 @@
 								</svg>
 								<a href="tel:+2349065951288" class="text-slate-600 hover:text-slate-900">+234 906 595 1288</a>
 							</li>
-						<li class="flex items-start">
-							<svg class="h-5 w-5 text-slate-500 mr-3 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 12.414a4 4 0 10-5.657 5.657l4.243 4.243a8 8 0 1011.314-11.314l-4.243-4.243a4 4 0 10-5.657 5.657l4.243 4.243" />
-							</svg>
-							<span class="text-slate-600">Bam Footwear Studio, No 3 Kajola shopping complex Odeda round about, along Abeokuta Ibadan Express Road</span>
-						</li>
+							<li class="flex items-start">
+								<svg class="h-5 w-5 text-slate-500 mr-3 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 12.414a4 4 0 10-5.657 5.657l4.243 4.243a8 8 0 1011.314-11.314l-4.243-4.243a4 4 0 10-5.657 5.657l4.243 4.243" />
+								</svg>
+								<span class="text-slate-600">Bam Footwear Studio, No 3 Kajola shopping complex Odeda round about, along Abeokuta Ibadan Express Road</span>
+							</li>
 							<li class="flex items-start">
 								<svg class="h-5 w-5 text-slate-500 mr-3 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />

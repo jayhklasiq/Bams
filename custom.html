@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Bam Footwear — Custom Orders</title>
+    <link href="assets/css/styles.css" rel="stylesheet" />
     <meta
       name="description"
       content="Create your custom footwear with Bam Footwear. Design your perfect pair of shoes with our customization options." />
@@ -25,11 +26,7 @@
       };
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
-      integrity="sha512-qpbNo6Upk0YvGgTg7yqJk/HRfP9wra6nZBqNhI7Zk2gk2Xn3S3mHDEfS3A4dWcAF0aLz3w3dD8h8Zc6o6XRl8g=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <style>
       /* Akony Font */
       @font-face {
@@ -94,16 +91,37 @@
     </style>
   </head>
   <body class="bg-white text-slate-800 antialiased" data-page="custom">
-    <header
-      class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-slate-200/60">
-      <div
-        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+    <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-slate-200/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
         <a href="index.html" class="font-black text-xl tracking-tight">Bam <span class="text-brand">Footwear</span></a>
-        <nav class="flex items-center gap-6 text-sm">
-          <a class="hover:text-brand" href="index.html">Gallery</a>
-          <a class="text-brand font-semibold" href="custom.html">Custom Orders</a>
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center gap-6 text-sm">
+          <a class="text-brand font-semibold" href="index.html">Gallery</a>
+          <a class="hover:text-brand" href="custom.html">Custom My Foot</a>
           <a class="hover:text-brand" href="contact.html">Contact Us</a>
         </nav>
+        <!-- Mobile menu button -->
+        <button id="menuToggle" class="md:hidden hamburger" aria-label="Toggle menu">
+          <span class="block w-6 h-0.5 bg-slate-900 mb-1.5 transition-transform"></span>
+          <span class="block w-6 h-0.5 bg-slate-900 mb-1.5 transition-opacity"></span>
+          <span class="block w-6 h-0.5 bg-slate-900 transition-transform"></span>
+        </button>
+      </div>
+      <!-- Mobile menu overlay -->
+      <div id="mobileMenu" class="mobile-menu fixed inset-0 z-50 bg-white/95 backdrop-blur-sm">
+        <!-- Close button -->
+        <button class="mobile-menu-close" onclick="toggleMenu()" aria-label="Close menu">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        <div class="flex flex-col h-full items-center space-y-8">
+          <nav class="flex flex-col items-center space-y-6 text-xl">
+            <a href="index.html" class="text-slate-900 hover:text-brand font-medium transition-colors" onclick="toggleMenu()">Gallery</a>
+            <a href="custom.html" class="text-slate-900 hover:text-brand font-medium transition-colors" onclick="toggleMenu()">Custom Orders</a>
+            <a href="contact.html" class="text-slate-900 hover:text-brand font-medium transition-colors" onclick="toggleMenu()">Contact Us</a>
+          </nav>
+        </div>
       </div>
     </header>
     <main>
