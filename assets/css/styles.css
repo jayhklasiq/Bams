@@ -51,7 +51,7 @@ textarea,
 select {
     font-size: 18px !important;
     line-height: 1.5 !important;
-    padding: 12px 16px !important;
+    padding: 16px !important;
     border-radius: 8px !important;
     border: 2px solid #e2e8f0 !important; /* slate-200 */
     background-color: #ffffff !important;
@@ -144,9 +144,9 @@ select {
     background-repeat: no-repeat !important;
     background-size: 16px !important;
     padding-right: 48px !important;
-    appearance: none !important;
     -webkit-appearance: none !important;
     -moz-appearance: none !important;
+    appearance: none !important;
 }
 
 /* Mobile Menu Button */
@@ -230,8 +230,8 @@ select {
     height: 48px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
     border: none;
     cursor: pointer;
     display: flex;

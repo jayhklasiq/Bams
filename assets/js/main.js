@@ -124,6 +124,28 @@ function initCustomForm() {
   // Add honeypot field to custom form
   addHoneypotField(form);
 
+  // Prefill selected design from query params (if present)
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const design = params.get('design');
+    const image = params.get('image');
+    if (design) {
+      const designInput = document.getElementById('selectedDesign');
+      const imageInput = document.getElementById('selectedImage');
+      const box = document.getElementById('selectedDesignBox');
+      const nameEl = document.getElementById('selectedDesignName');
+      const imgEl = document.getElementById('selectedDesignImage');
+
+      if (designInput) designInput.value = design;
+      if (imageInput) imageInput.value = image || '';
+      if (nameEl) nameEl.textContent = design;
+      if (imgEl && image) imgEl.src = image;
+      if (box) box.classList.remove('hidden');
+    }
+  } catch (e) {
+    console.warn('Could not read selected design from URL params', e);
+  }
+
   const homeVisitFields = document.getElementById('homeVisitFields');
   const enterNowFields = document.getElementById('enterNowFields');
 
@@ -174,7 +196,13 @@ function initCustomForm() {
       details = `Measurement method: Entered now\nFoot length (cm): ${length || 'N/A'}\nFoot width (cm): ${width || 'N/A'}\nShoe size: ${size || 'N/A'}\nNotes: ${notes || 'N/A'}`;
     }
 
-    const text = `New Custom Order - Bam Footwear\nName: ${firstName} ${lastName}\nPhone: ${phone}\nEmail: ${email}\n${details}`;
+    const selectedDesign = form.selectedDesign ? form.selectedDesign.value.trim() : '';
+    const selectedImage = form.selectedImage ? form.selectedImage.value.trim() : '';
+    const designBlock = selectedDesign
+      ? `\nSelected design: ${selectedDesign}${selectedImage ? `\nImage: ${selectedImage}` : ''}`
+      : '';
+
+    const text = `New Custom Order - Bam Footwear\nName: ${firstName} ${lastName}\nPhone: ${phone}\nEmail: ${email}${designBlock}\n${details}`;
     console.log('Opening WhatsApp with message:', text);
     openWhatsApp(text);
   });
@@ -336,6 +364,7 @@ function initGallery() {
       item.className = 'group rounded-xl overflow-hidden border border-slate-200 bg-white shadow-sm gallery-card';
 
       // Create gallery item with lazy loading
+      const absoluteImageUrl = new URL('images/' + image, window.location.href).toString();
       item.innerHTML = `
         <div class="aspect-square bg-cover bg-center gallery-image lazy-load" 
              data-index="${index}"
@@ -345,6 +374,12 @@ function initGallery() {
         <div class="p-3">
           <p class="font-semibold">${getImageName(image)}</p>
           <p class="text-sm text-slate-500">${getImageDescription(image)}</p>
+          <div class="mt-3">
+            <a
+              href="custom.html?design=${encodeURIComponent(getImageName(image))}&image=${encodeURIComponent(absoluteImageUrl)}"
+              class="inline-flex items-center justify-center px-3 py-2 rounded-md bg-brand text-slate-900 font-semibold shadow hover:bg-brand-dark transition text-sm"
+            >Order Me</a>
+          </div>
         </div>
       `;
       galleryGrid.appendChild(item);
